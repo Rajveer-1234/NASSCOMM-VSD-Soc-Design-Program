@@ -3,4 +3,8 @@ Welcome to the Digital VLSI Soc Design and Planning Program conducted by VLSI SY
 
 ## DAY 1
 ### Overview of QFN-48 Chip,Pads,Core,Die and IP's
-<img src="C:\Users\DELL\Pictures\Screenshots\Screenshot 2025-03-28 132604.png"/>
+<img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/QFN-48.png"/>
+<img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Die%2CCore%2CIP's.png"/>
+<img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/IP's%20Foundry.png"/>
+<img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/RISC-V.png"/>
+<img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Software%20Applications.png"/>
