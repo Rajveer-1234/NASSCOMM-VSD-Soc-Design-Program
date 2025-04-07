@@ -1,7 +1,6 @@
 # NASSCOMM-VSD-Soc-Design-Program
 Welcome to the Digital VLSI Soc Design and Planning Program conducted by VLSI SYSTEM DESIGN.This programs gives a overview of RTL to GDSII glow through rigorous lab exercises with hands on experience in physical design using Open Source EDA tools to students.
 
-## DAY 1
 ### Overview of QFN-48 Chip,Pads,Core,Die and IP's
 The QFN-48 (Quad Flat No-lead) package is a surface-mount integrated circuit (IC) package with 48 pins. It is commonly used for applications requiring a small form factor, excellent thermal performance, and efficient electrical connections.
 <img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/QFN-48.png"/>
@@ -80,17 +79,18 @@ Components required for Open-Source Digital ASIC Design are
 <img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Power%20Planning.png"/>
 3.Placement - Place standard cells inside the defined floorplan.
 
-  * Global Placement: for optimal position of cells
-  * Detailed Placement: for legal positions
+  * Global Placement: It identifies the most efficient positions for all cells, though the initial placement may include overlaps or violations. The optimization is based on minimizing the half-perimeter wire 
+    length (HPWL) to reduce overall routing complexity.
+  * Detailed Placement: It adjusts the positions of cells after global placement to ensure they follow design rules and are legally placed without overlaps.
 <img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Placement.png"/>
 4.CTS - Insert buffers/inverters to distribute the clock signal uniformly so that there is clock skew.
 <img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/CTS.png"/>
 5.Routing - Connect all placed cells with metal wires while obeying design rules.
 
-  * Global Routing - Global routing plans approximate wire paths between cells and blocks across routing tracks.
+  * Global Routing: Global routing plans approximate wire paths between cells and blocks across routing tracks.
 <img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Global%20Routing.png"/>
 
-  * Detailed Routing - Detailed routing assigns exact metal layers and wire geometries to connect pins while meeting design rules.
+  * Detailed Routing: Detailed routing assigns exact metal layers and wire geometries to connect pins while meeting design rules.
 <img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Detailed%20Routing.png"/>
 6.Sign Off - Physical (DRC, LVS) and Timing verifications (STA).
 
@@ -166,10 +166,9 @@ Now these are synthesis reports
 One such report we are looking is `1-yosys_4.stat.rpt`
 <img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Screenshot%202025-04-03%20111501.png"/>
 
-## DAY 2
 ### FLOORPLANNNING AND PLACEMENT
 
-1.Utilization Factor & Aspect Ratio  
+`1.Utilization Factor & Aspect Ratio`  
 
 While doing floorplanning we need to consider 2 parameters which will help us to decide about die,core of the chip
 
@@ -189,21 +188,76 @@ Aspect Ratio =  Height
 
 Aspect ratio of 1 implies that the chip is square shaped as (h==w). Any value other than 1 implies rectanglular chip.
 
-2.Pre placed cells
+`2.Pre placed cells`
 
 The concept of pre-placing cells is nothing but reusing already designed blocks by not designing them again and again.Pre-placed cells are IPs comprising large combinational logic which once placed maintain a fixed position.Eg memory blocks,IP's 
 
-3.Decoupling Capacitors
+`3.Decoupling Capacitors`
 
 Generally these pre-placed blocks will be high-power draining blocks.Pre-placed cells must then be surrounded with decoupling capacitors (decaps).Decaps are huge capacitors charged to power supply voltage and placed close the logic circuit. Their role is to decouple the circuit from power supply by supplying the necessary amount of current to the circuit. They pervent crosstalk and enable local communication
 
-4.Power Planning
+`4.Power Planning`
 
 Unlike pre-placed macros, individual blocks on the chip typically can't have dedicated decap cells. To maintain stable power delivery, effective power planning ensures that each block is equipped with its own VDD and VSS pads, which are tied into the chip’s horizontal and vertical power mesh.
 
-5.Pin Placement
+`5.Pin Placement`
 
 The netlist outlines how logic gates are connected. The area between the core and the die is used to place the chip’s pins. The connectivity described in Verilog or VHDL helps determine where the I/O pads for each pin should be located. After that, logical placement of pre-placed macros is carried out to distinguish their regions from the pin placement area.
 
-#### FLORPLAN IN EDA
+#### FLOORPLAN IN EDA
 
+Important files which are considered while doing floorplanning are 
+
+1. ```floorplan.tcl``` 
+2. ```conifg.tcl```
+3. ```sky130A_sky130_fd_sc_hd_config.tcl```
+   
+Their priority order is also like this 1 with highest priority and 3 with lowest priority.Like clock port is declared in all the 3 files so clk port value which `floorplan.tcl` is having will be considered.
+
+Now these files are shown in the toolbox
+
+<img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Screenshot%202025-04-03%20111808.png"/>
+<img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Screenshot%202025-04-03%20111845.png"/>
+<img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Screenshot%202025-04-03%20113828.png"/>
+<img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Screenshot%202025-04-03%20114108.png"/>
+
+Now these are floorplan switches which are defined in the `README.md file`
+
+<img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Screenshot%202025-04-03%20112117.png"/>
+
+Now
+
+`run_floorplan`
+
+
+<img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Screenshot%202025-04-03%20112949.png"/>
+
+Post the floorplan run, a .def file is created
+
+<img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Screenshot%202025-04-03%20114550.png"/>
+
+For viewing floorplan magic is invoked with the help of following command in floorplan folder inside results directory
+
+```magic -T /Desktop/work/tools/openlane_workshop_dir/pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged..lef def read picorv32a.floorplan.def &```
+
+<img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Screenshot%202025-04-03%20122405.png"/>
+<img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Screenshot%202025-04-03%20122553.png"/>
+<img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Screenshot%202025-04-03%20122842.png"/>
+<img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Screenshot%202025-04-03%20123439.png"/>
+
+#### PLACEMENT IN EDA
+
+Now once your floorplan is completed do placememt.As you know placement will fill the defined floorplan with standard cells.
+
+Now
+
+```run_placemement```
+<img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Screenshot%202025-04-03%20140014.png"/>
+
+For viewing placement magic is invoked with the help of following command in placement folder inside results directory
+
+```magic -T /Desktop/work/tools/openlane_workshop_dir/pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged..lef def read picorv32a.placement.def &```
+
+<img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Screenshot%202025-04-03%20140029.png"/>
+<img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Screenshot%202025-04-03%20140053.png"/>
+<img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Screenshot%202025-04-03%20140201.png"/>
