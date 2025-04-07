@@ -28,7 +28,7 @@ The QFN-48 (Quad Flat No-lead) package is a surface-mount integrated circuit (IC
   
 * These are predesigned and reusable verified circuit blocks used in chip design.
 * Types of IP:
-    * Soft IP: RTL-based (e.g., Verilog/VHDL code) that can be synthesized.
+   * Soft IP: RTL-based (e.g., Verilog/VHDL code) that can be synthesized.
    * Firm IP: Netlist-level IP with some degree of customization.
    * Hard IP: Fully placed and routed, ready for integration.
 <img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/IP's%20Foundry.png"/>
@@ -39,5 +39,57 @@ An Instruction Set Architecture (ISA) is the interface between hardware (process
 <img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/RISC-V.png"/>
 
 ### From Software Applications to Hardware
-This image gives a overview that actually how software apps comunicate with hardware
+This image gives a overview that actually how software apps comunicate with hardware.There is a system software layer between app and hardware.The apps interface with system software and this layer converts them into a language which hardware can understand i.e binary language.
+
+The System Software consists of different layers:
+
+ 1. O.S : Other than the general operations like Handling I.O operations, Allocating Memory, Low level System Functions the O.S converts the Application software to respected C,C++,Java etc.. codes.
+
+ 2. Compiler : The compiler takes output of O.S as input and converts the codes in C,C++,Java etc.. into Instruction set(.exe files). These instructions will be dependent on type of hardware used.
+
+ 3. Assembler : Assembler converts the .exe files into binary language and provides it to the hardware, and hardware performs the respective operations.
+
 <img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Software%20Applications.png"/>
+
+### Open-Source Digital ASIC Design
+<img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Open%20Source%20ASIC.png"/>
+Components required for Open-Source Digital ASIC Design are
+
+1.RTL Design - In RTL design the behavior of a digital circuit is described using hardware description languages (HDLs) like Verilog or VHDL.
+
+2.EDA Tools - Tools that help take your design from RTL all the way to GDSII (final layout),making chip ready for fabrication by verifying functionality at every stage.
+
+3.PDK Data - The PDK contains technology-specific data provided by the foundry. This includes:
+    
+  * Design rules (minimum spacing, width, etc.)
+  * Transistor models
+  * Standard cell libraries
+  * DRC/LVS rule decks
+  * Layer information
+
+### Simplified RTL to GDSII Flow
+<img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Simplified%20RTL%20TO%20GDSII%20Flow.png"/>
+
+1.Synthesis – Convert RTL to a gate-level netlist using standard cells.
+<img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Synthesis.png"/>
+2.Floorplanning and Powerplanning -
+  * Floorplanning defines the chip's physical layout—core size, IO pin placement, and cell rows—ensuring logical blocks fit efficiently.
+<img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Floorplanning.png"/>
+
+  * Power planning builds power rings and metal straps to distribute VDD/VSS across the chip, ensuring reliable power delivery to all cells.
+<img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Power%20Planning.png"/>
+3.Placement - Place standard cells inside the defined floorplan.
+  * Global Placement: for optimal position of cells
+  * Detailed Placement: for legal positions
+<img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Placement.png"/>
+4.CTS - Insert buffers/inverters to distribute the clock signal uniformly so that there is clock skew.
+<img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/CTS.png"/>
+5.Routing - Connect all placed cells with metal wires while obeying design rules.
+  * Global Routing - Global routing plans approximate wire paths between cells and blocks across routing tracks.
+<img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Global%20Routing.png"/>
+
+  * Detailed Routing - Detailed routing assigns exact metal layers and wire geometries to connect pins while meeting design rules.
+<img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Detailed%20Routing.png"/>
+6.Sign Off - Physical (DRC, LVS) and Timing verifications (STA).
+
+
