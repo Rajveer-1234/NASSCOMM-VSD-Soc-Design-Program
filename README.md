@@ -117,7 +117,7 @@ For step by step execution of OpenLANE ASIC flow various open-source EDA tools a
   * CTS might fail to insert buffers due to metal blockage.
   * Routing congestion or violations may happen.
 
-#### Invoking OpenLANE & Design preparation stage
+#### Tools demonstration from RTL to GDSII in linux
 The path of directory in which we will invoke our OpenLANE is
 
  ```
@@ -130,4 +130,33 @@ docker
 package require openlane 0.9
 prep -design picorv32a
 ```
+<img src = "https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Screenshot%202025-04-03%20110042.png"/>
+<img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Screenshot%202025-04-03%20110339.png"/>
 
+After preparing design a runs folder will be created inside picorv32a folder
+<img src = "https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Screenshot%202025-04-03%20110518.png"/>
+
+After design preparation is complete run synthesis
+
+``` 
+run_synthesis
+```
+<img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Screenshot%202025-04-03%20111144.png"/>
+Now once the synthesis is complete we will calculate flop ratio 
+<img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Screenshot%202025-04-03%20111051.png"/>
+
+```
+Flop ratio = Number of D Flip flops 
+             ______________________
+             Total Number of cells
+```
+
+```
+dfxtp_4 = 1613,
+Number of cells = 14876,
+Flop ratio = 1613/14876 = 0.1084 = 10.84%
+```
+Now we can see synthesis reports
+<img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Screenshot%202025-04-03%20111330.png"/>
+<img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Screenshot%202025-04-03%20111418.png"/>
+<img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Screenshot%202025-04-03%20111501.png"/>
