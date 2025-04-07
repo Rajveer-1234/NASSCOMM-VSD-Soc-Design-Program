@@ -94,4 +94,40 @@ Components required for Open-Source Digital ASIC Design are
 <img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Detailed%20Routing.png"/>
 6.Sign Off - Physical (DRC, LVS) and Timing verifications (STA).
 
+### Open-source EDA tools
+For step by step execution of OpenLANE ASIC flow various open-source EDA tools are used
+
+| Column 1 | Column 2 |
+|----------|----------|
+| RTL synthesis and technology mapping | yosys,abc|
+| Floorplan         |init_fp,io_placer,tap_decap_or          |
+| Placement         |  RePLace        |
+| STA         | OpenSTA         |
+| CTS         | TritonCTS         |
+| Routing         | TritonRoute         |
+| DRC checks & GDSII generation         |magic,layout          |
+
+###### NOTE: In general ASIC design flow  pdn generation is done after floorplan but in OpenLANE ASIC design flow pdn generation is done after cts and before routing due to following reasons
+1.OpenLane uses automated flows (OpenROAD), which:
+
+  * Insert clock buffers automatically.
+  * Don’t fully account for pre-existing PDN early on.
+
+2.If PDN is generated too early:
+  * CTS might fail to insert buffers due to metal blockage.
+  * Routing congestion or violations may happen.
+
+#### Invoking OpenLANE & Design preparation stage
+The path of directory in which we will invoke our OpenLANE is
+
+ ```
+ vsduser@vsdsquadron:~/Desktop/work/tools/openlane_workshop_dir/openlane/
+```
+Now for invoking the OpenLANE and preparing the design use the followng commands
+```
+docker
+./flow.tcl -interactive
+package require openlane 0.9
+prep -design picorv32a
+```
 
