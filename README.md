@@ -261,3 +261,74 @@ For viewing placement magic is invoked with the help of following command in pla
 <img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Screenshot%202025-04-03%20140029.png"/>
 <img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Screenshot%202025-04-03%20140053.png"/>
 <img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Screenshot%202025-04-03%20140201.png"/>
+
+### STANDARD CELL DESIGN FLOW
+ 
+It involves three steps
+1. Inputs: libraries, PDKs, user-defined specifications, DRC & LVS rules, SPICE models. 
+2. Design steps: Circuit design, Layout design , Extraction of parasitics, Characterization .
+3. Outputs: CDL (circuit description language), LEF, GDSII, extracted SPICE netlist (.cir), timing, noise and power .lib files
+
+A SPICE DECK files includes model netlist,library files,load capcitances, how the components are connected and their values.
+
+### STANDARD CELL LAYOUT OF INVERTER
+
+Now our objective is to embedd a standard cell i.e inverter into our picorv32a design file
+
+For this certain steps are fold
+
+1. We wiil clone a repository `vsdstdcelldesign` in our `openlane` directory
+
+```
+git clone https://github.com/nickson-jose/vsdstdcelldesign
+```
+
+Now we want to see the layout of the inverter so we will open magic inside vsdstdcelldesign directory which we cloned
+
+`magic -T sky130A.tech sky130_inv.mag &`
+
+<img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Screenshot%202025-04-04%20233306.png"/>
+<img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Screenshot%202025-04-04%20233330.png"/>
+<img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Screenshot%202025-04-04%20234409.png"/>
+
+We need a spice file so we need to extract it using following commands
+
+```
+extract all
+ext2spice cthresh 0 rethresh 0
+ext2spice
+```
+
+<img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Screenshot%202025-04-04%20235927.png"/>
+
+Now the spice file is shown below
+<img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Screenshot%202025-04-05%20002508.png"/>
+
+Now we need to see the transition graph se wee need to run simulation by using ngpice in terminal
+
+```
+ngspice sky130_inv.spice
+```
+<img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Screenshot%202025-04-05%20003540.png"/>
+
+Now for charcterizing standard cell design 4 parameters are taken into consideration
+
+1.Rise transition: Time taken for the output to rise from 20% of max value to 80% of max value
+
+2.Fall transition- Time taken for the output to fall from 80% of max value to 20% of max value
+
+3.Cell rise delay = time(50% output rise) - time(50% input fall)
+
+4.Cell fall delay = time(50% output fall) - time(50% input rise)
+
+<img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Screenshot%202025-04-05%20003924.png"/>
+
+According to my calculation 
+
+ 1.Rise Time =0.0638ns
+ 
+ 2.Fall Time=0.04277ns
+ 
+ 3.Cell Rise Delay=0.06092ns
+ 
+ 4.Cell Fall Delay=0.02713ns
