@@ -79,12 +79,14 @@ Components required for Open-Source Digital ASIC Design are
   * Power planning builds power rings and metal straps to distribute VDD/VSS across the chip, ensuring reliable power delivery to all cells.
 <img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Power%20Planning.png"/>
 3.Placement - Place standard cells inside the defined floorplan.
+
   * Global Placement: for optimal position of cells
   * Detailed Placement: for legal positions
 <img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Placement.png"/>
 4.CTS - Insert buffers/inverters to distribute the clock signal uniformly so that there is clock skew.
 <img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/CTS.png"/>
 5.Routing - Connect all placed cells with metal wires while obeying design rules.
+
   * Global Routing - Global routing plans approximate wire paths between cells and blocks across routing tracks.
 <img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Global%20Routing.png"/>
 
