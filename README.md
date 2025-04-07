@@ -156,7 +156,54 @@ dfxtp_4 = 1613,
 Number of cells = 14876,
 Flop ratio = 1613/14876 = 0.1084 = 10.84%
 ```
-Now we can see synthesis reports
+
+Now we can see synthesis results and reports
+
+In synthesis results `.v` will be created which shows our design is converted into gate level netlist
 <img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Screenshot%202025-04-03%20111330.png"/>
+Now these are synthesis reports
 <img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Screenshot%202025-04-03%20111418.png"/>
+One such report we are looking is `1-yosys_4.stat.rpt`
 <img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Screenshot%202025-04-03%20111501.png"/>
+
+## DAY 2
+### FLOORPLANNNING AND PLACEMENT
+
+1.Utilization Factor & Aspect Ratio  
+
+While doing floorplanning we need to consider 2 parameters which will help us to decide about die,core of the chip
+
+```
+Utilisation Factor =  Area occupied by netlist
+                     __________________________
+                        Total area of core
+```
+
+```
+Aspect Ratio =  Height
+               ________
+                Width
+```
+
+ Utilisation Factor of 1 signifies 100% utilisation of core and no other cell can be placed. However, practically, the Utilisation Factor is 0.5-0.6. 
+
+Aspect ratio of 1 implies that the chip is square shaped as (h==w). Any value other than 1 implies rectanglular chip.
+
+2.Pre placed cells
+
+The concept of pre-placing cells is nothing but reusing already designed blocks by not designing them again and again.Pre-placed cells are IPs comprising large combinational logic which once placed maintain a fixed position.Eg memory blocks,IP's 
+
+3.Decoupling Capacitors
+
+Generally these pre-placed blocks will be high-power draining blocks.Pre-placed cells must then be surrounded with decoupling capacitors (decaps).Decaps are huge capacitors charged to power supply voltage and placed close the logic circuit. Their role is to decouple the circuit from power supply by supplying the necessary amount of current to the circuit. They pervent crosstalk and enable local communication
+
+4.Power Planning
+
+Unlike pre-placed macros, individual blocks on the chip typically can't have dedicated decap cells. To maintain stable power delivery, effective power planning ensures that each block is equipped with its own VDD and VSS pads, which are tied into the chip’s horizontal and vertical power mesh.
+
+5.Pin Placement
+
+The netlist outlines how logic gates are connected. The area between the core and the die is used to place the chip’s pins. The connectivity described in Verilog or VHDL helps determine where the I/O pads for each pin should be located. After that, logical placement of pre-placed macros is carried out to distinguish their regions from the pin placement area.
+
+#### FLORPLAN IN EDA
+
