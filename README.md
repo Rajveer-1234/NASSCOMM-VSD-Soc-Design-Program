@@ -50,7 +50,7 @@ The System Software consists of different layers:
 
 <img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Software%20Applications.png"/>
 
-### Open-Source Digital ASIC Design
+### Open-Source Digital ASIC Design Flow
 <img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Open%20Source%20ASIC.png"/>
 Components required for Open-Source Digital ASIC Design are
 
@@ -107,17 +107,18 @@ For step by step execution of OpenLANE ASIC flow various open-source EDA tools a
 | Routing         | TritonRoute         |
 | DRC checks & GDSII generation         |magic,layout          |
 
-###### NOTE: In general ASIC design flow  pdn generation is done after floorplan but in OpenLANE ASIC design flow pdn generation is done after cts and before routing due to following reasons
+**NOTE: In general ASIC design flow  pdn generation is done after floorplan but in OpenLANE ASIC design flow pdn generation is done after cts and before routing due to following reasons**
+
 1.OpenLane uses automated flows (OpenROAD), which:
 
   * Insert clock buffers automatically.
   * Don’t fully account for pre-existing PDN early on.
-
+    
 2.If PDN is generated too early:
   * CTS might fail to insert buffers due to metal blockage.
   * Routing congestion or violations may happen.
 
-#### Tools demonstration from RTL to GDSII in linux
+### Tools demonstration from RTL to GDSII in linux
 The path of directory in which we will invoke our OpenLANE is
 
  ```
