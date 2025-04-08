@@ -394,7 +394,7 @@ Now write lef file in tkcon window.As you can see lef file is created
 <img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Screenshot%202025-04-06%20125841.png"/>
 This is the lef file containing all information
 <img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Screenshot%202025-04-06%20130038.png"/>
-Now we have new cell iverter we have to include this in our synthesis.So first we need to integrate it in picorv32 design and for that we need to copy the lef file and all the timing libraries required for analysis in our src folder
+Now we have new cell inverter we have to include this in our synthesis.So first we need to integrate it in picorv32 design and for that we need to copy the lef file and all the timing libraries required for analysis in our src folder
 <img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Screenshot%202025-04-06%20131040.png"/>
 <img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Screenshot%202025-04-06%20131751.png"/>
 Now go inside the picorv32 open `config.tcl` file.Update this file
