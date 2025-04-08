@@ -359,28 +359,119 @@ According to my calculation
  <img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Screenshot%202025-04-06%20014117.png"/>
  <img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Screenshot%202025-04-06%20014533.png"/>
 
- ###
+ ### PRE LAYOUT TIMING ANALYSIS/POST SYNTHESIS TIMING ANALYSIS
+
+In this section we need a LEF file from magic layout file 
+
+First convert track.info file to grid.info
+
+This is a track file we can see this in this location
+
+```
+cd openlane_working_dir/pdks/sky130A/libs.tech/openlane/sky130_fd_sc_hd/less tracks.info
+```
 
 <img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Screenshot%202025-04-06%20122729.png"/>
+
+Now open magic layout window inside vsdstdcelldesign directory
+
+```
+magic -T sky130A.tech sky130_inv.mag &
+```
+
+A requirement for ports as specified in tracks.info is that they should be at intersection of horizontal and vertical tracks.To ensure they are at intersection use this command
+
+```
+grid 0.46um 0.34um 0.23um 0.17um
+```
+
 <img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Screenshot%202025-04-06%20123447.png"/>
+Now save file as sky130vsdinv.img
+
 <img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Screenshot%202025-04-06%20125254.png"/>
+Now write lef file in tkcon window.As you can see lef file is created
 <img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Screenshot%202025-04-06%20125841.png"/>
+This is the lef file containing all information
 <img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Screenshot%202025-04-06%20130038.png"/>
+Now we have new cell iverter we have to include this in our synthesis.So first we need to integrate it in picorv32 design and for that we need to copy the lef file and all the timing libraries required for analysis in our src folder
 <img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Screenshot%202025-04-06%20131040.png"/>
 <img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Screenshot%202025-04-06%20131751.png"/>
+Now go inside the picorv32 open `config.tcl` file.Update this file
 <img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Screenshot%202025-04-06%20132946.png"/>
 <img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Screenshot%202025-04-06%20141043.png"/>
+
+Now start again from scratch in OpenLANE so that we can whether our cell is included in our design
+
+Use these commands 
+
+```
+docker
+
+flow.tcl -interactive
+
+package require openlane 0.9
+
+prep -design picorv32a -tag 23-03_10-48 -overwrite
+
+set lefs [glob $::env(DESIGN_DIR)/src/*.lef]
+
+add_lefs -src $lefs
+
+run_synthesis
+```
+
+Now we can see vsdinv is include in our design when we completed the synthesis stage and there is a huge value of total negative slack and worst negative slack
 <img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Screenshot%202025-04-06%20141112.png"/>
 <img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Screenshot%202025-04-06%20141728.png"/>
 <img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Screenshot%202025-04-06%20141802.png"/>
+
+So to improve timing performance we will change certain parameters and start agai using these commands
+
+```
+# Now once again we have to prep design so as to update variables
+prep -design picorv32a -tag 24-03_10-03 -overwrite
+
+# Addiitional commands to include newly added lef to openlane flow merged.lef
+set lefs [glob $::env(DESIGN_DIR)/src/*.lef]
+add_lefs -src $lefs
+
+# Command to display current value of variable SYNTH_STRATEGY
+echo $::env(SYNTH_STRATEGY)
+
+# Command to set new value for SYNTH_STRATEGY
+set ::env(SYNTH_STRATEGY) "DELAY 3"
+
+# Command to display current value of variable SYNTH_BUFFERING to check whether it's enabled
+echo $::env(SYNTH_BUFFERING)
+
+# Command to display current value of variable SYNTH_SIZING
+echo $::env(SYNTH_SIZING)
+
+# Command to set new value for SYNTH_SIZING
+set ::env(SYNTH_SIZING) 1
+
+# Command to display current value of variable SYNTH_DRIVING_CELL to check whether it's the proper cell or not
+echo $::env(SYNTH_DRIVING_CELL)
+
+# Now that the design is prepped and ready, we can run synthesis using following command
+run_synthesis
+
+```
+
 <img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Screenshot%202025-04-06%20154454.png"/>
 <img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Screenshot%202025-04-06%20155739.png"/>
+
+Now run floorplan
 <img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Screenshot%202025-04-06%20160452.png"/>
+Placememt
 <img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Screenshot%202025-04-06%20160630.png"/>
 <img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Screenshot%202025-04-06%20161230.png"/>
+We can see an instance of inv in figur below
 <img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Screenshot%202025-04-06%20161918.png"/>
 <img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Screenshot%202025-04-06%20162016.png"/>
 <img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Screenshot%202025-04-06%20162111.png"/>
+
+Now doing post synthesis timing analysis
 <img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Screenshot%202025-04-06%20223445.png"/>
 <img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Screenshot%202025-04-06%20224608.png"/>
 <img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Screenshot%202025-04-06%20233052.png"/>
