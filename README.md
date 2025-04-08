@@ -349,7 +349,7 @@ According to my calculation
  <img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Screenshot%202025-04-05%20134118.png"/>
  <img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Screenshot%202025-04-05%20134130.png"/>
  <img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Screenshot%202025-04-05%20135708.png"/>
- <img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Screenshot%202025-04-05%20140064.png"/>
+ <img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Screenshot%202025-04-05%20140644.png"/>
  <img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Screenshot%202025-04-06%20002339.png"/>
  <img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Screenshot%202025-04-06%20002838.png"/>
  <img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Screenshot%202025-04-06%20010559.png"/>
@@ -420,8 +420,8 @@ add_lefs -src $lefs
 run_synthesis
 ```
 
-Now we can see vsdinv is include in our design when we completed the synthesis stage and there is a huge value of total negative slack and worst negative slack
 <img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Screenshot%202025-04-06%20141112.png"/>
+Now we can see vsdinv is include in our design when we completed the synthesis stage and there is a huge value of total negative slack and worst negative slack
 <img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Screenshot%202025-04-06%20141728.png"/>
 <img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Screenshot%202025-04-06%20141802.png"/>
 
@@ -474,7 +474,12 @@ We can see an instance of inv in figur below
 Now doing post synthesis timing analysis
 <img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Screenshot%202025-04-06%20223445.png"/>
 <img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Screenshot%202025-04-06%20224608.png"/>
+We can see there is no timing violation
 <img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Screenshot%202025-04-06%20233052.png"/>
+
+### CTS
+
+The purpose of building a clock tree is to ensure the clock signal reaches all sequential elements uniformly, minimizing clock skew. The H-tree is a commonly used methodology in Clock Tree Synthesis (CTS). 
 <img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Screenshot%202025-04-07%20001210.png"/>
 <img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Screenshot%202025-04-07%20001820.png"/>
 <img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Screenshot%202025-04-07%20001940.png"/>
@@ -482,12 +487,21 @@ Now doing post synthesis timing analysis
 <img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Screenshot%202025-04-07%20010311.png"/>
 <img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Screenshot%202025-04-07%20010430.png"/>
 <img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Screenshot%202025-04-07%20010454.png"/>
+
+### PDN GENERATION
+
+for pdn generation use command `gen_pdn`
+
 <img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Screenshot%202025-04-07%20013542.png"/>
 <img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Screenshot%202025-04-07%20013853.png"/>
 <img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Screenshot%202025-04-07%20013906.png"/>
+
+# ROUTING AND FINAL GDSII generation
 <img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Screenshot%202025-04-07%20014538.png"/>
 <img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Screenshot%202025-04-07%20020707.png"/>
 <img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Screenshot%202025-04-07%20020720.png"/>
+
+These are final chip tapeout files sent to foundry for fabrication
 <img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Screenshot%202025-04-07%20022810.png"/>
 <img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Screenshot%202025-04-07%20022850.png"/>
 <img src="https://github.com/Rajveer-1234/NASSCOMM-VSD-Soc-Design-Program/blob/main/Images/Screenshot%202025-04-07%20023043.png"/>
